@@ -1,5 +1,6 @@
 
-// LearningMELPlatform.jsx — ESF Visual Identity Integrated
+// Fixed LearningMELPlatform.jsx — ESF Visual Identity Integrated
+// ✅ JSX structure corrected for deployment
 
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -11,45 +12,40 @@ import { Sparkles, ClipboardList, RefreshCw, Map } from "lucide-react";
 
 export default function LearningMELPlatform() {
   const [preAnswer, setPreAnswer] = useState("");
-  const [satisfaction, setSatisfaction] = useState("");
   const [selectedOutcome, setSelectedOutcome] = useState("");
   const [reflectionType, setReflectionType] = useState("insight");
   const [outcomeReflection, setOutcomeReflection] = useState("");
   const [reflectorName, setReflectorName] = useState("");
-  const [agency, setAgency] = useState("");
-  const [powerDynamics, setPowerDynamics] = useState("");
   const [zoneOfInfluence, setZoneOfInfluence] = useState("");
   const [forceFieldDrivers, setForceFieldDrivers] = useState("");
   const [forceFieldBarriers, setForceFieldBarriers] = useState("");
   const [postAnswer, setPostAnswer] = useState("");
   const [peerWall, setPeerWall] = useState([]);
-  const [groupReflection, setGroupReflection] = useState("");
-  const [facilitatorNotes, setFacilitatorNotes] = useState("");
 
   const outcomeReflections = {
     expand: {
-      insight: "🌍 What idea or moment made you go 'Ah-ha!'? How does it help you see an old challenge differently?",
-      story: "🌍 Share a story where you began reframing a challenge after this insight.",
-      commitment: "🌍 What mindset shift do you want to nurture going forward?"
+      insight: "🌍 What idea or moment made you go 'Ah-ha!'?",
+      story: "🌍 Share a story where you began reframing a challenge.",
+      commitment: "🌍 What mindset shift do you want to nurture?"
     },
     complexity: {
-      insight: "💡 What complexity or contradiction stood out to you? How did it shift your understanding?",
-      story: "💡 Describe a moment when engaging with complexity changed your perspective.",
-      commitment: "💡 How can you become more comfortable working with ambiguity?"
+      insight: "💡 What complexity or contradiction stood out to you?",
+      story: "💡 Describe a moment when engaging with complexity.",
+      commitment: "💡 How can you work with ambiguity?"
     },
     trust: {
-      insight: "🧱 When did you notice trust being built in this space?",
+      insight: "🧱 When did you notice trust being built?",
       story: "🧱 Tell a story about trust in your work.",
-      commitment: "🧱 What will you do to strengthen collaboration?"
+      commitment: "🧱 How will you strengthen collaboration?"
     },
     adaptation: {
-      insight: "🦎 What hands-on experience helped you learn? Why did it stick?",
-      story: "🦎 Describe a moment where learning-by-doing made a difference.",
-      commitment: "🦎 What practice will you try to adapt based on what you learned?"
+      insight: "🦎 What experience helped you learn?",
+      story: "🦎 Describe learning-by-doing.",
+      commitment: "🦎 What practice will you adapt?"
     },
     agency: {
       insight: "✍️ What commitment do you feel empowered to make?",
-      story: "✍️ Tell a story about when you influenced change.",
+      story: "✍️ Tell a story about influencing change.",
       commitment: "✍️ What step will you take to own the outcome?"
     }
   };
@@ -68,144 +64,78 @@ export default function LearningMELPlatform() {
       </h1>
       <Tabs defaultValue="pre">
         <TabsList className="grid grid-cols-4 w-full bg-esf-lime text-black rounded-lg p-1 shadow">
-          <TabsTrigger value="pre" className="rounded-md"> <ClipboardList className="inline-block mr-1" /> Pre-Engage</TabsTrigger>
-          <TabsTrigger value="direct" className="rounded-md"> <Sparkles className="inline-block mr-1" /> Direct Engage</TabsTrigger>
-          <TabsTrigger value="post" className="rounded-md"> <RefreshCw className="inline-block mr-1" /> Re-Engage</TabsTrigger>
-          <TabsTrigger value="systems" className="rounded-md"> <Map className="inline-block mr-1" /> Systems Tools</TabsTrigger>
+          <TabsTrigger value="pre"> <ClipboardList className="inline-block mr-1" /> Pre-Engage</TabsTrigger>
+          <TabsTrigger value="direct"> <Sparkles className="inline-block mr-1" /> Direct Engage</TabsTrigger>
+          <TabsTrigger value="post"> <RefreshCw className="inline-block mr-1" /> Re-Engage</TabsTrigger>
+          <TabsTrigger value="systems"> <Map className="inline-block mr-1" /> Systems Tools</TabsTrigger>
         </TabsList>
 
         <TabsContent value="pre" className="mt-6">
-          <Card className="shadow-md rounded-2xl border border-muted bg-white">
-            <CardContent className="space-y-6 p-6">
+          <Card><CardContent className="space-y-6 p-6">
+            <p className="text-esf-fuchsia text-sm italic">
+              🌱 Frame your intention and learning edge.
+            </p>
+            <label className="font-semibold text-lg text-esf-blue">What are you most curious about?</label>
+            <Textarea className="bg-gray-100" value={preAnswer} onChange={(e) => setPreAnswer(e.target.value)} />
+            <Button onClick={() => alert("Saved")} className="w-full bg-esf-green hover:bg-esf-blue text-white">Submit</Button>
+          </CardContent></Card>
+        </TabsContent>
+
+        <TabsContent value="direct" className="mt-6">
+          <Card><CardContent className="space-y-6 p-6">
+            <label className="font-semibold text-esf-blue">Choose Outcome</label>
+            <Select onValueChange={setSelectedOutcome}>
+              <SelectTrigger className="w-full bg-gray-100">{selectedOutcome || "Select"}</SelectTrigger>
+              <SelectContent>
+                <SelectItem value="expand">🌍 Expand</SelectItem>
+                <SelectItem value="complexity">💡 Complexity</SelectItem>
+                <SelectItem value="trust">🧱 Trust</SelectItem>
+                <SelectItem value="adaptation">🦎 Adapt</SelectItem>
+                <SelectItem value="agency">✍️ Agency</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select onValueChange={setReflectionType}>
+              <SelectTrigger className="w-full bg-gray-100 capitalize">{reflectionType}</SelectTrigger>
+              <SelectContent>
+                <SelectItem value="insight">Insight</SelectItem>
+                <SelectItem value="story">Story</SelectItem>
+                <SelectItem value="commitment">Commitment</SelectItem>
+              </SelectContent>
+            </Select>
+            {selectedOutcome && (
               <div className="space-y-2">
-                <p className="text-esf-fuchsia text-sm italic">
-                  🌱 This section helps you frame your intention and learning edge before the session. Your input helps guide facilitation.
-                </p>
-                <label className="font-semibold text-lg text-esf-blue">What are you most curious about in this session?</label>
-                <Textarea
-                  className="bg-gray-100"
-                  placeholder="Type your response..."
-                  value={preAnswer}
-                  onChange={(e) => setPreAnswer(e.target.value)}
-                />
+                <p className="text-sm italic text-esf-fuchsia">{outcomeReflections[selectedOutcome][reflectionType]}</p>
+                <Textarea className="bg-white" value={outcomeReflection} onChange={(e) => setOutcomeReflection(e.target.value)} />
+                <input className="w-full p-2 border rounded-md" placeholder="Your name" value={reflectorName} onChange={(e) => setReflectorName(e.target.value)} />
+                <Button onClick={handleAddToPeerWall} className="w-full bg-esf-green hover:bg-esf-blue text-white">Share</Button>
               </div>
-              <Button onClick={() => alert("Saved pre-engagement response")} className="w-full bg-esf-green hover:bg-esf-blue text-white">Submit</Button>
-            </CardContent>
-          </Card>
+            )}
+          </CardContent></Card>
+        </TabsContent>
+
+        <TabsContent value="post" className="mt-6">
+          <Card><CardContent className="space-y-6 p-6">
+            <p className="text-esf-fuchsia text-sm italic">🔁 Revisit learning and share experience.</p>
+            <label className="font-semibold text-esf-blue">What changes have you noticed?</label>
+            <Textarea className="bg-gray-100" value={postAnswer} onChange={(e) => setPostAnswer(e.target.value)} />
+          </CardContent></Card>
+        </TabsContent>
+
+        <TabsContent value="systems" className="mt-6">
+          <Card><CardContent className="space-y-6 p-6">
+            <p className="text-esf-fuchsia text-sm italic">🗺️ Explore influence and resistance.</p>
+            <div className="space-y-2">
+              <label className="font-semibold text-esf-orange">Zone of Influence</label>
+              <Textarea className="bg-gray-100" value={zoneOfInfluence} onChange={(e) => setZoneOfInfluence(e.target.value)} />
+            </div>
+            <div className="space-y-2">
+              <label className="font-semibold text-esf-orange">Force Field Analysis</label>
+              <Textarea className="bg-gray-100" placeholder="Driving Forces" value={forceFieldDrivers} onChange={(e) => setForceFieldDrivers(e.target.value)} />
+              <Textarea className="bg-gray-100" placeholder="Restraining Forces" value={forceFieldBarriers} onChange={(e) => setForceFieldBarriers(e.target.value)} />
+            </div>
+          </CardContent></Card>
         </TabsContent>
       </Tabs>
     </div>
   );
 }
-
-        <TabsContent value="direct" className="mt-6">
-          <Card className="shadow-md rounded-2xl border border-muted bg-white">
-            <CardContent className="space-y-6 p-6">
-              <p className="text-esf-fuchsia text-sm italic">
-                ✨ This space supports real-time group reflection to capture insight and intent. Responses help shape collective learning.
-              </p>
-              <label className="font-semibold text-esf-blue">Choose a Learning Outcome</label>
-              <Select onValueChange={setSelectedOutcome}>
-                <SelectTrigger className="w-full bg-gray-100">{selectedOutcome || "Select an outcome"}</SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="expand">🌍 Expand Mindsets</SelectItem>
-                  <SelectItem value="complexity">💡 Engage Complexity</SelectItem>
-                  <SelectItem value="trust">🧱 Build Trust</SelectItem>
-                  <SelectItem value="adaptation">🦎 Adapt Continuously</SelectItem>
-                  <SelectItem value="agency">✍️ Strengthen Agency</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <label className="font-semibold text-esf-blue">Type of Reflection</label>
-              <Select onValueChange={setReflectionType} defaultValue="insight">
-                <SelectTrigger className="w-full bg-gray-100 capitalize">{reflectionType}</SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="insight">Insight</SelectItem>
-                  <SelectItem value="story">Story</SelectItem>
-                  <SelectItem value="commitment">Commitment</SelectItem>
-                </SelectContent>
-              </Select>
-
-              {selectedOutcome && (
-                <div className="space-y-2">
-                  <p className="text-sm italic text-esf-fuchsia">
-                    {outcomeReflections[selectedOutcome]?.[reflectionType]}
-                  </p>
-                  <Textarea
-                    className="bg-white"
-                    placeholder="Write your reflection..."
-                    value={outcomeReflection}
-                    onChange={(e) => setOutcomeReflection(e.target.value)}
-                  />
-                  <input
-                    className="w-full p-2 border rounded-md"
-                    placeholder="Your name or initials"
-                    value={reflectorName}
-                    onChange={(e) => setReflectorName(e.target.value)}
-                  />
-                  <Button onClick={handleAddToPeerWall} className="w-full bg-esf-green hover:bg-esf-blue text-white">
-                    Share to Peer Wall
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-       <>
-        <TabsContent value="post" className="mt-6">
-          <Card className="shadow-md rounded-2xl border border-muted bg-white">
-            <CardContent className="space-y-6 p-6">
-              <p className="text-esf-fuchsia text-sm italic">
-                🔁 This section revisits learning over time. It supports collective adaptation and MEL through experience-sharing.
-              </p>
-              <label className="font-semibold text-esf-blue">What changes have you noticed in your practice?</label>
-              <Textarea
-                className="bg-gray-100"
-                placeholder="Share a story or example of applying what you learned..."
-                value={postAnswer}
-                onChange={(e) => setPostAnswer(e.target.value)}
-              />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="systems" className="mt-6">
-          <Card className="shadow-md rounded-2xl border border-muted bg-white">
-            <CardContent className="space-y-6 p-6">
-              <p className="text-esf-fuchsia text-sm italic">
-                🗺️ This section supports systems thinking. Use mapping tools to explore influence, resistance, and structural levers.
-              </p>
-
-              <div className="space-y-2">
-                <label className="font-semibold text-esf-orange">Zone of Influence</label>
-                <Textarea
-                  className="bg-gray-100"
-                  placeholder="What do you directly control or influence?"
-                  value={zoneOfInfluence}
-                  onChange={(e) => setZoneOfInfluence(e.target.value)}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent> 
-      </> 
-
-              <div className="space-y-2">
-                <label className="font-semibold text-esf-orange">Force Field Analysis</label>
-                <Textarea
-                  className="bg-gray-100"
-                  placeholder="Driving Forces (what's supporting the change)"
-                  value={forceFieldDrivers}
-                  onChange={(e) => setForceFieldDrivers(e.target.value)}
-                />
-                <Textarea
-                  className="bg-gray-100"
-                  placeholder="Restraining Forces (what's resisting the change)"
-                  value={forceFieldBarriers}
-                  onChange={(e) => setForceFieldBarriers(e.target.value)}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
