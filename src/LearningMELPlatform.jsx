@@ -152,6 +152,7 @@ export default function LearningMELPlatform() {
           </Card>
         </TabsContent>
 
+       <>
         <TabsContent value="post" className="mt-6">
           <Card className="shadow-md rounded-2xl border border-muted bg-white">
             <CardContent className="space-y-6 p-6">
@@ -185,6 +186,10 @@ export default function LearningMELPlatform() {
                   onChange={(e) => setZoneOfInfluence(e.target.value)}
                 />
               </div>
+            </CardContent>
+          </Card>
+        </TabsContent> 
+      </> 
 
               <div className="space-y-2">
                 <label className="font-semibold text-esf-orange">Force Field Analysis</label>
